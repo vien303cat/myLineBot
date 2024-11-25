@@ -15,8 +15,7 @@ export default async (event) => {
       const name = $(this).find('.card-title').text().trim()
 
       t.body.contents[0].url = url
-      t.body.contents[2].contents[0].contents[0].contents[0].text = ''
-
+      t.body.contents[2].contents[0].contents[0].contents[0].text = name
       courses.push(t)
     })
 
