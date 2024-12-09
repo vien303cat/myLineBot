@@ -12,10 +12,11 @@ bot.on('message', event => {
   console.log(Number(event.message.text))
   console.log(event.message)
 
-  if (event.message.type === 'number') {
+  const eventNum = Number(event.message.text)
+  if (eventNum) {
     pokeGO(event.message.text, event)
   } else {
-    event.reply('查詢失敗:' + event.message.text)
+    event.reply('請輸入數字來查詢寶可夢編號！')
   }
 })
 
