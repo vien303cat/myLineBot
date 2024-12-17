@@ -36,9 +36,15 @@ export default async (index = 2, event) => {
       }
 
       const t = template()
-      const imgUrl = img.data.data[0].detail.imgUrl
+      const imgUrl = (img.data.data.length !== 0) ? img.data.data[0].detail.imgUrl : 'https://memeprod.sgp1.digitaloceanspaces.com/user-wtf/1664884575170.jpg'
       const name = pokemon.name.zh
       const kind = pokemon.genera.zh
+
+      const detail = pokemon.entries.zh.join('')
+
+      if (!imgUrl || !name || !kind) {
+        event.reply('查詢失敗,資料有誤 編號:' + index)
+      }
 
       let typeIcon = ''
       let typeTxt = ''
@@ -68,11 +74,12 @@ export default async (index = 2, event) => {
       t.body.contents[0].text = name
       t.footer.contents[0].action.uri = wikiUrl
       t.body.contents[2].contents[0].contents[1].text = kind
+      t.body.contents[3].contents[0].contents[1].text = detail
 
       const output = t
       const result = await event.reply({
         type: 'flex',
-        altText: '查詢結果',
+        altText: '編號:' + index + ' |' + name,
         contents: {
           type: 'carousel',
           contents: [output]
